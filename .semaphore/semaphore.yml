@@ -1,5 +1,5 @@
 version: v1.0
-name: CI
+name: Dockerize
 agent:
   machine:
     type: e1-standard-2
@@ -24,3 +24,8 @@ blocks:
             - cache restore
             - bundle install --deployment --path vendor/bundle
             - bundle exec rspec
+promotions:
+  - name: Dockerize
+    pipeline_file: pipeline_2.yml
+    auto_promote:
+      when: branch = 'master' AND result = 'passed'
